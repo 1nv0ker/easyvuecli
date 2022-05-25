@@ -12,7 +12,7 @@ program
   .option('-n, --name <type>', 'vue component name')
   .option('-m, --mode <type>', 'js mode or ts mode', modes[0])
   .option('-s, --store <type>', 'js mode or ts mode', modes[0])
-  .option('-sn --storename <type>', 'vue store name')
+  .option('-sn, --storename <type>', 'vue store name')
 
 program.parse();
 
