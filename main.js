@@ -2,6 +2,7 @@
 const { createWriteStream } = require('fs')
 const ejs = require('ejs')
 const { program } = require('commander');
+const path = require('path')
 
 const { createDir } = require('./utils')
 const { createSwaggerType } = require('./swagger')
@@ -13,7 +14,7 @@ program
   .option('-c, --component <type>', 'component name')
   .option('-n, --name <type>', 'vue component name')
   .option('-m, --mode <type>', 'js mode or ts mode', modes[0])
-  .option('-s, --store <type>', 'js mode or ts mode', modes[0])
+  .option('-s, --store <type>', 'js mode or ts mode')
   .option('-sn, --storename <type>', 'vue store name')
   .option('-sw, --swagger <type>', 'swagger request url')
   .option('-swn, --swaggername <type>', 'swagger type file name')
@@ -30,7 +31,7 @@ if (options.component) {//vue文件
     }
     
     let ejsFile = options.mode?(modes.indexOf(options.mode) === -1?modes[0]:options.mode):modes[0]
-    ejs.renderFile(`./template/component/${ejsFile}.ejs`, {name: options.name?options.name:dirs[dirs.length-1]}, (err, data) => {
+    ejs.renderFile(path.resolve(__dirname+`/template/component/${ejsFile}.ejs`), {name: options.name?options.name:dirs[dirs.length-1]}, (err, data) => {
         if(err) throw err
 
 
