@@ -1,0 +1,5 @@
+interface <%= name %> {
+    <% types.forEach(function(item){ %>
+        <%= item.name %>:<%= item.type %>;
+    <% }); %>
+}

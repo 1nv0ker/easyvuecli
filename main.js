@@ -1,8 +1,10 @@
 #!/usr/bin/env node
-const { mkdirSync, createWriteStream, stat } = require('fs')
+const { createWriteStream } = require('fs')
 const ejs = require('ejs')
 const { program } = require('commander');
 
+const { createDir } = require('./utils')
+const { createSwaggerType } = require('./swagger')
 const modes = [
     'js',
     'ts'
@@ -13,6 +15,8 @@ program
   .option('-m, --mode <type>', 'js mode or ts mode', modes[0])
   .option('-s, --store <type>', 'js mode or ts mode', modes[0])
   .option('-sn, --storename <type>', 'vue store name')
+  .option('-sw, --swagger <type>', 'swagger request url')
+  .option('-swn, --swaggername <type>', 'swagger type file name')
 
 program.parse();
 
@@ -55,11 +59,7 @@ if (options.store) {//store文件
         fdStream.write(data)
     })
 }
-
-async function createDir(dirs) {
-    try {
-        await stat(dirs.join('/'))
-    } catch (e) {
-        mkdirSync(dirs.join('/'), {recursive:true})
-    }
+if (options.swagger) {//swagger 类型文件
+    const name = options.swaggername?options.swaggername:'test'
+    createSwaggerType(options.swagger, name)
 }
