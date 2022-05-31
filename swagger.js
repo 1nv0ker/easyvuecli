@@ -3,16 +3,16 @@ const { createWriteStream, stat } = require('fs')
 const axios = require('axios')
 const { createDir } = require('./utils')
 const path = require('path')
-async function main(path, resultPath) {
+async function main(filepath, resultPath) {
     let swaggerData = {}
     var reg=/(http|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/;
-    if (reg.test(path)) {
-        await axios.get(path)
+    if (reg.test(filepath)) {
+        await axios.get(filepath)
         .then(res => {
             swaggerData = res.data
         })
     } else {
-        swaggerData = require(path)
+        swaggerData = require(filepath)
     }
     handleSwagger(swaggerData, resultPath)
     
