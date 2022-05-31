@@ -2,7 +2,7 @@ const ejs = require('ejs')
 const { createWriteStream, stat } = require('fs')
 const axios = require('axios')
 const { createDir } = require('./utils')
-
+const path = require('path')
 async function main(path, resultPath) {
     let swaggerData = {}
     var reg=/(http|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/;
@@ -93,7 +93,7 @@ function handleSwagger(swaggerData, resultPath) {
                 return item
             }
         })
-        ejs.renderFile(`./template/types/index.ejs`, {name: name, types: tempTypes}, (err, data) => {
+        ejs.renderFile(path.resolve(__dirname+`/template/types/index.ejs`), {name: name, types: tempTypes}, (err, data) => {
             if(err) throw err
         
             fileData = fileData + '\n' + data
