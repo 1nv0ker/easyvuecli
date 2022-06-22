@@ -23,9 +23,9 @@ function handleSwagger(swaggerData, resultPath) {
 
     let tempComponents = {}
     for (let key in swaggerData.components.schemas) {
-        if (swaggerData.components.schemas[key]['properties']) {
-            tempComponents[key] = swaggerData.components.schemas[key]['properties']
-        }
+        // if (swaggerData.components.schemas[key]['properties']) {
+        tempComponents[key] = swaggerData.components.schemas[key]['properties']
+        // }
     }
 
     let componentTypes = {}
